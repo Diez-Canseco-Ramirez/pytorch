@@ -51,6 +51,7 @@ RUN git submodule update --init --recursive
 FROM conda as build
 WORKDIR /opt/pytorch
 COPY --from=conda /opt/conda /opt/conda
+# TODO for testing purposes, should copy from local directory
 COPY --from=submodule-update /opt/pytorch /opt/pytorch
 RUN --mount=type=cache,target=/opt/ccache \
     TORCH_CUDA_ARCH_LIST="3.5 5.2 6.0 6.1 7.0+PTX 8.0" TORCH_NVCC_FLAGS="-Xfatbin -compress-all" \
